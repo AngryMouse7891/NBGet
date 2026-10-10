@@ -1,0 +1,16 @@
+[package]
+name = "nbget"
+version = "0.0.1"
+authors = ["AngryMouse7891 <pystart@qq.com>"]
+edition = "2024"
+readme = "README.md" # README 文件路径
+repository = "https://gitee.com/AngryMouse7891/NBGet" # 源代码仓库
+license = "LGPLv3" # 开源协议
+
+[dependencies]
+clap = { version = "4.5.42", features = ["derive"] }
+file-retriever = "0.1.7"
+reqwest = "0.12.23"
+tokio = { version = "1.47.1", features = ["full"] }
+url = "2.5.8"
+colored = "3.1.1"
