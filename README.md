@@ -16,7 +16,7 @@
 
 NBGet是一个使用了Rust语言+tokio+reqwest+file-retriever的文件下载CLI工具。
 
-> [!INFO]
+> [!NOTE]
 > 这是我的第一个Rust项目，本人可能对Rust语言不太了解，不喜勿喷
 
 ## 特性
@@ -37,6 +37,7 @@ NBGet是一个使用了Rust语言+tokio+reqwest+file-retriever的文件下载CLI
 | [`reqwest`](https://crates.io/crates/reqwest) | `0.12.13` | HTTP客户端 |
 | [`tokio`](https://crates.io/crates/tokio) | `1.47.1` | 异步运行时 |
 | [`url`](https://crates.io/crates/url) | `2.5.8` | 用于处理URL的标准库 |
+| [`colored`](https://crates.io/crates/colored) | `3.1.1` | 彩色输出库 |
 
 ## 开源协议
 
