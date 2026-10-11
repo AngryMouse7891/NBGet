@@ -10,11 +10,15 @@
    <img src="https://img.shields.io/badge/gitee-repo-blue?logo=gitee" alt="Gitee Repo">
    <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgitee.com%2Fapi%2Fv5%2Frepos%2FAngryMouse7891%2FNBGet%2Flicense&query=%24.license&label=license&color=green
    " alt="License">
+   <img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.giteeusercontent.com%2FAngryMouse7891%2FNBGet%2Fraw%2Fmain%2FCargo.toml&query=%24.package.version&label=latest&color=orange
+" alt="Version"/>
 </p>
 
 ## 简介
 
 NBGet是一个使用了Rust语言+tokio+reqwest+file-retriever的文件下载CLI工具。
+
+关于名字的起源的话，“牛逼”的拼音首字母是`NB`，故得名NBGet。
 
 > [!NOTE]
 > 这是我的第一个Rust项目，本人可能对Rust语言不太了解，不喜勿喷
