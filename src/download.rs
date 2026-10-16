@@ -6,11 +6,17 @@ use std::time::Duration;
 use crate::messages::info_msg;
 use chrono::Local;
 
-pub async fn download_file(url: &str, out: &str, timeout: u64, headers: Vec<(String, String)>, useragent:&str) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+pub async fn download_file(
+    url: &str, 
+    out: &str, 
+    timeout: u64, 
+    headers: Vec<(String, String)>, 
+    useragent:&str,
+    noprogress: bool) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let now = Local::now();
     info_msg(format!("开始下载：{} （{}）",url,now).as_str());
     let retriever = RetrieverBuilder::new()
-        .show_progress(true)
+        .show_progress(!noprogress)
         .workers(1)
         .build();
 

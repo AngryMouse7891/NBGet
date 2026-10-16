@@ -39,6 +39,9 @@ struct Args {
     /// 设置是否显示时间
     #[arg(long, default_value_t = false)]
     display_time: bool,
+    /// 设置是否禁用进度条
+    #[arg(long, default_value_t = false)]
+    no_progress: bool,
     /// 自定义请求头，格式: "Key: Value"，可多次使用
     #[arg(short = 'H', long = "header", value_parser = parse_header)]
     headers: Vec<(String, String)>,
@@ -79,7 +82,8 @@ async fn main() {
         outfile.as_str(),
         args.timeout,
         args.headers,
-        args.user_agent.as_str()
+        args.user_agent.as_str(),
+        args.no_progress
     ).await;
 
     match download_result {
