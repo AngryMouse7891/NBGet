@@ -3,7 +3,9 @@ mod download;
 mod messages;
 use url::Url;
 use percent_encoding::percent_decode_str;
+use std::process::exit;
 use std::time::Instant;
+use std::path::Path;
 
 
 fn get_filename_from_url(url_str: &str) -> Option<String> {
@@ -61,10 +63,17 @@ async fn main() {
         .map(str::to_string)
         .unwrap_or_else(|| get_filename_from_url(args.url.as_str()).unwrap());
     
+    let mut outfile=String::from(out_path.as_str());
+
+    if Path::new(outfile.as_str()).exists() {
+        messages::warn_msg(format!("文件已存在，将会命名为{}……",outfile).as_str());
+        outfile+="_";
+    }
+    
     let start = Instant::now();
     let download_result=download::download_file(
         args.url.as_str(),
-        out_path.as_str(),
+        outfile.as_str(),
         args.timeout,
         args.headers
     ).await;
@@ -81,6 +90,7 @@ async fn main() {
         }
         Err(e) => {
             messages::err_msg(format!("下载失败！原因：{}",e).as_str());
+            exit(1);
         }
     }
 }
