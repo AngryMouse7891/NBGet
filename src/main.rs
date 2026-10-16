@@ -1,25 +1,25 @@
 use clap::Parser;
 mod download;
+mod messages;
 use url::Url;
+use percent_encoding::percent_decode_str;
+
 
 fn get_filename_from_url(url_str: &str) -> Option<String> {
     let url = Url::parse(url_str).ok()?;
-    let segments = url.path_segments()?;
-    // 关键修复：使用 ? 解包 Option，如果为 None 会自动返回 None
-    let last = segments.last()?;
-
-    if last.is_empty() {
+    let last_segment = url.path_segments()?.last()?;
+    
+    if last_segment.is_empty() {
         return None;
     }
-
-    // 解码百分号编码（如 %20 -> 空格）
-    Some(percent_decode(last))
-}
-
-// 简单的百分号解码（或直接用 percent-encoding crate）
-fn percent_decode(input: &str) -> String {
-    // 实际项目中建议用 percent_encoding crate
-    input.replace("%20", " ") // 修复：合并到一行
+    
+    // 解码百分号编码，处理非 UTF-8 的容错
+    let decoded = percent_decode_str(last_segment)
+        .decode_utf8()
+        .map(|s| s.into_owned())
+        .unwrap_or_else(|_| last_segment.to_string());
+    
+    Some(decoded)
 }
 
 #[derive(Parser, Debug)]

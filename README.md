@@ -42,6 +42,8 @@ NBGet是一个使用了Rust语言+tokio+reqwest+file-retriever的文件下载CLI
 | [`tokio`](https://crates.io/crates/tokio) | `1.47.1` | 异步运行时 |
 | [`url`](https://crates.io/crates/url) | `2.5.8` | 用于处理URL的标准库 |
 | [`colored`](https://crates.io/crates/colored) | `3.1.1` | 彩色输出库 |
+| [`percent-encoding`](https://crates.io/crates/percent-encoding) | `2.3.2` | 百分比编解码 |
+| [`chrono`](https://crates.io/crates/chrono) | `0.4.45` | 日期时间库 |
 
 ## 开源协议
 
