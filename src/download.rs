@@ -1,11 +1,12 @@
 use file_retriever::{self, RetrieverBuilder};
 use reqwest::Client;
+use reqwest::header::{USER_AGENT};
 use tokio::fs::OpenOptions;
 use std::time::Duration;
 use crate::messages::info_msg;
 use chrono::Local;
 
-pub async fn download_file(url: &str, out: &str, timeout: u64, headers: Vec<(String, String)>) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+pub async fn download_file(url: &str, out: &str, timeout: u64, headers: Vec<(String, String)>, useragent:&str) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let now = Local::now();
     info_msg(format!("开始下载：{} （{}）",url,now).as_str());
     let retriever = RetrieverBuilder::new()
@@ -21,6 +22,8 @@ pub async fn download_file(url: &str, out: &str, timeout: u64, headers: Vec<(Str
     for (key, value) in headers {
         request_builder = request_builder.header(key, value);
     }
+
+    request_builder = request_builder.header(USER_AGENT, useragent);
 
     let request = request_builder.build().unwrap();
 

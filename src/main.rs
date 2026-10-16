@@ -42,6 +42,9 @@ struct Args {
     /// 自定义请求头，格式: "Key: Value"，可多次使用
     #[arg(short = 'H', long = "header", value_parser = parse_header)]
     headers: Vec<(String, String)>,
+    /// 指定下载UA
+    #[arg(short='A', long, default_value_t = format!("NBGet/{}",env!("CARGO_PKG_VERSION")))]
+    user_agent: String,
 }
 
 fn parse_header(s: &str) -> Result<(String, String), String> {
@@ -75,11 +78,12 @@ async fn main() {
         args.url.as_str(),
         outfile.as_str(),
         args.timeout,
-        args.headers
+        args.headers,
+        args.user_agent.as_str()
     ).await;
 
     match download_result {
-        Ok(v) => {
+        Ok(_v) => {
             let duration = start.elapsed();
             if args.display_time {
                 messages::info_msg(format!("✅ 下载完成，耗时 {:.1}s",duration.as_secs_f64().to_string().as_str()).as_str());
