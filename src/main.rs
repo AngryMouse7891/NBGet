@@ -3,6 +3,7 @@ mod download;
 mod messages;
 use url::Url;
 use percent_encoding::percent_decode_str;
+use std::time::Instant;
 
 
 fn get_filename_from_url(url_str: &str) -> Option<String> {
@@ -27,10 +28,15 @@ fn get_filename_from_url(url_str: &str) -> Option<String> {
 struct Args {
     /// 指定要下载的URL
     url: String,
+    /// 输出文件名
     #[arg(short, long)]
     out: Option<String>,
-    #[arg(long)]
-    display_time: Option<bool>,
+    /// 设置超时
+    #[arg(short='T', long, default_value_t = 15)]
+    timeout: u64,
+    /// 设置是否显示时间
+    #[arg(long, default_value_t = false)]
+    display_time: bool,
     /// 自定义请求头，格式: "Key: Value"，可多次使用
     #[arg(short = 'H', long = "header", value_parser = parse_header)]
     headers: Vec<(String, String)>,
@@ -55,13 +61,26 @@ async fn main() {
         .map(str::to_string)
         .unwrap_or_else(|| get_filename_from_url(args.url.as_str()).unwrap());
     
-    // 简化 display_time 的处理逻辑
-    let dt = args.display_time.unwrap_or(false);
-    
-    download::download_file(
+    let start = Instant::now();
+    let download_result=download::download_file(
         args.url.as_str(),
         out_path.as_str(),
-        dt,
+        args.timeout,
         args.headers
     ).await;
+
+    match download_result {
+        Ok(v) => {
+            let duration = start.elapsed();
+            if args.display_time {
+                messages::info_msg(format!("✅ 下载完成，耗时 {:.1}s",duration.as_secs_f64().to_string().as_str()).as_str());
+            }
+            else {
+                messages::info_msg("✅ 下载完成");
+            }
+        }
+        Err(e) => {
+            messages::err_msg(format!("下载失败！原因：{}",e).as_str());
+        }
+    }
 }
