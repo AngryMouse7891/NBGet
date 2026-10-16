@@ -1,7 +1,7 @@
 use file_retriever::{self, RetrieverBuilder};
 use reqwest::Client;
 use tokio::fs::OpenOptions;
-use std::time::{Duration, Instant};
+use std::time::Duration;
 use crate::messages::info_msg;
 use chrono::Local;
 
