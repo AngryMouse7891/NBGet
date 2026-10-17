@@ -19,3 +19,19 @@ chrono = "0.4.45"
 
 [build-dependencies]
 embed-resource = "3.0.12"
+
+[package.metadata.deb]
+maintainer = "AngryMouse7891 <pystart@qq.com>"
+copyright = "Copyright (c) 2026 红温的鼠鼠7891"
+license-file = ["LICENSE", "4"]
+extended-description = """\
+一个使用Rust语言开发的可以下载文件的CLI工具，就是牛逼！"""
+depends = "$auto"
+section = "utility"
+priority = "optional"
+assets = [
+    # target/release path is special, and gets replaced by cargo-deb with the actual target dir path.
+    ["target/release/nbget", "usr/bin/", "755"],
+    # both array and object syntaxes are equivalent:
+    { source = "README.md", dest = "usr/share/doc/nbget/README.md", mode = "644"},
+]
