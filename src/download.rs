@@ -1,6 +1,6 @@
 use file_retriever::{self, RetrieverBuilder};
 use reqwest::Client;
-use reqwest::header::{USER_AGENT};
+use reqwest::header::{USER_AGENT, ACCEPT};
 use tokio::fs::OpenOptions;
 use std::time::Duration;
 
@@ -19,6 +19,8 @@ pub async fn download_file(
     let mut request_builder = Client::new()
         .get(url)
         .timeout(Duration::from_secs(timeout));
+    
+    request_builder = request_builder.header(ACCEPT, "*/*");
 
     // 添加自定义请求头
     for (key, value) in headers {
