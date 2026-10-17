@@ -76,6 +76,8 @@ async fn main() {
         outfile+="_";
     }
     
+    messages::info_msg2(format!("正在保存至{}……",outfile).as_str());
+
     let start = Instant::now();
     let download_result=download::download_file(
         args.url.as_str(),
