@@ -1,5 +1,5 @@
 ---
-paths: src/**/*.rs
+paths: [ src/**/*.rs ]
 ---
 
 # Implementation Rules

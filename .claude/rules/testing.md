@@ -1,5 +1,5 @@
 ---
-paths: src/**/*.rs, tests/**/*.rs
+paths: [ src/**/*.rs, tests/**/*.rs ]
 ---
 
 # Testing Rules
