@@ -45,7 +45,7 @@ struct Args {
     #[arg(short = 'H', long = "header", value_parser = parse_header)]
     headers: Vec<(String, String)>,
     /// 指定下载UA
-    #[arg(short='A', long, default_value_t = format!("NBGet/{}",env!("CARGO_PKG_VERSION")))]
+    #[arg(short='A', long, default_value_t = format!("NBGet/{} (Rust {})",env!("CARGO_PKG_VERSION"),env!("CARGO_PKG_RUST_VERSION")))]
     user_agent: String,
 }
 
