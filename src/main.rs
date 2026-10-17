@@ -121,10 +121,10 @@ License   {}"
         Ok(_v) => {
             let duration = start.elapsed();
             if args.display_time {
-                messages::info_msg(format!("✅ 下载完成，耗时 {:.1}s",duration.as_secs_f64().to_string().as_str()).as_str());
+                messages::info_msg(format!("✅ 下载完成，耗时 {:.1}s （{}）",duration.as_secs_f64().to_string().as_str(),Local::now()).as_str());
             }
             else {
-                messages::info_msg("✅ 下载完成");
+                messages::info_msg(format!("✅ 下载完成 （{}）",Local::now()).as_str());
             }
         }
         Err(e) => {
