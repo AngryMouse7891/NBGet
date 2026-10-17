@@ -25,7 +25,7 @@ fn get_filename_from_url(url_str: &str) -> Option<String> {
 }
 
 #[derive(Parser, Debug)]
-#[command(name="nbget", author, version, about="一个使用Rust语言写的cli下载工具", long_about = None)]
+#[command(name="nbget", author, version, about, long_about = None)]
 struct Args {
     /// 指定要下载的URL
     url: String,

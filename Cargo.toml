@@ -6,6 +6,7 @@ edition = "2024"
 readme = "README.md" # README 文件路径
 repository = "https://gitee.com/AngryMouse7891/NBGet" # 源代码仓库
 license = "LGPL-3.0" # 开源协议
+description = "一个使用Rust语言开发的可以下载文件的CLI工具，就是牛逼！" # 项目简介
 
 [dependencies]
 clap = { version = "4.5.42", features = ["derive"] }
