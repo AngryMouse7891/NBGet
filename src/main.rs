@@ -101,8 +101,8 @@ License   {}"
     let mut outfile=String::from(out_path.as_str());
 
     if Path::new(outfile.as_str()).exists() {
-        messages::warn_msg(format!("文件已存在，将会命名为{}……",outfile).as_str());
         outfile+="_";
+        messages::warn_msg(format!("文件已存在，将会命名为{}……",outfile).as_str());
     }
     
     messages::info_msg2(format!("正在保存至{}……",outfile).as_str());
