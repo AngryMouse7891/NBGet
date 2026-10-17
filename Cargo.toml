@@ -5,7 +5,7 @@ authors = ["AngryMouse7891 <pystart@qq.com>"]
 edition = "2024"
 readme = "README.md" # README 文件路径
 repository = "https://gitee.com/AngryMouse7891/NBGet" # 源代码仓库
-license = "LGPLv3" # 开源协议
+license = "LGPL-3.0" # 开源协议
 
 [dependencies]
 clap = { version = "4.5.42", features = ["derive"] }
