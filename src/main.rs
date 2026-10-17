@@ -82,7 +82,7 @@ async fn main() {
 Version   {}
 Authors   {}
 Repo      {}
-License   {}"
+License   {}\n"
         ,ASCII_LOGO.blue(),
         env!("CARGO_PKG_DESCRIPTION").blue(),
         env!("CARGO_PKG_VERSION").green(),
