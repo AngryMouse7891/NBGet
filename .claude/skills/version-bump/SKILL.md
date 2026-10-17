@@ -1,72 +1,72 @@
 ---
 name: version-bump
-description: Cargo.tomlのバージョンをセマンティックバージョニングに従ってバンプアップし、git tagを作成する。前回のgit tagからの差分を分析してバージョン種別（major/minor/patch）を自動判定する。「バージョンを上げて」「リリースして」「version bump」「バージョンアップ」などのリクエストで起動。
+description: 根据语义版本调整Cargo.toml的版本并创建git tag。分析与上次git tag的差异，自动判定版本类型（major/minor/patch）。“升级版本”、“发布”、“version bump”、“版本升级”等请求启动。
 ---
 
 # Version Bump
 
-Cargo.tomlのバージョンをバンプアップし、git tagを作成する。
+安装Cargo.toml版本并创建git tag。
 
-## ワークフロー
+##工作流程
 
-### 1. 現在の状態を分析
+### 1.分析当前状态
 
-```bash
-# 最新のバージョンタグを取得
-git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0"
+``` bash
+#获取最新版本标签
+git describe——tags——abbrev=0 2>/dev/null || echo “v0.0.0”
 
-# 前回タグからの差分を取得
-git diff <前回タグ>..HEAD --stat
-git diff <前回タグ>..HEAD
-```
+#获取与前一个标签的差异
+git diff上回标签结果——stat
+git diff上回标签结果
+` ` `
 
-### 2. バージョン種別を判定
+### 2.确定版本类型
 
-差分の内容を分析し、以下の基準でバージョン種別を判定：
+分析差异内容，根据以下标准判断版本类型：
 
-| 種別 | 判定基準 |
+|类别|判定标准|
 |------|----------|
-| **major** | 破壊的変更：パブリックAPIのシグネチャ変更、削除、互換性のない変更 |
-| **minor** | 機能追加：新しいパブリック関数/構造体/モジュールの追加、新機能 |
-| **patch** | バグ修正：既存機能の修正、リファクタリング、ドキュメント更新、依存関係更新 |
+| **major** |破坏性变更：公共API的签名变更、删除、不兼容的变更|
+| **minor** |新增功能：新增公共函数/结构/模块，新增功能|
+| **patch** |错误修复：现有功能修复，重构，文档更新，依赖关系更新|
 
-### 3. ユーザーに提案
+### 3.用户建议
 
-判定結果をユーザーに提示し、AskUserQuestionで確認：
-
-```
-現在のバージョン: X.Y.Z
-提案バージョン: X.Y.Z+1 (patch)
-
-主な変更点:
-- [変更内容のサマリー]
-
-このバージョンでよろしいですか？
-```
-
-選択肢：
-- 提案通り (patch/minor/major)
-- 別のバージョン種別を選択
-
-### 4. バージョンを更新
-
-ユーザー承認後：
-
-1. Cargo.tomlの`version`フィールドを更新
-2. `cargo check`で検証
-3. 変更をコミット: `chore: bump version to X.Y.Z`
-4. git tagを作成: `vX.Y.Z`
-
-### 5. 完了報告
+将结果呈现给用户，并在AskUserQuestion中确认：
 
 ```
-バージョンを v{新バージョン} に更新しました。
+当前版本：x.y.z
+建议版本：x.y.z +1 （patch）
 
-git push && git push --tags でリモートに反映してください。
+主要变化：
+-[更改摘要]
+
+这个版本可以吗？
 ```
 
-## 注意事項
+选项：
+（patch/minor/major）
+-选择不同的版本类型
 
-- タグは`v`プレフィックス付き（例: v1.2.3）
-- Cargo.lockが存在する場合は自動更新される
-- ワークスペースの場合はルートのCargo.tomlのみ更新
+### 4.更新版本
+
+用户授权后：
+
+1.更新Cargo.toml的version字段
+2.用“cargo check”检查
+提交更改：chore: bump version to x.y.z `
+创建git tag: ` vx.y.z `
+
+### 5.完成报告
+
+```
+将版本更新为v{新版本}。
+
+请使用git push && git push——tags远程反映。
+```
+
+##注意事项
+
+-标签带有前缀（例如v1.2.3）
+- Cargo.lock会自动更新
+-工作区仅更新root的Cargo.toml
