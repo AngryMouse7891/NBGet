@@ -52,6 +52,9 @@ struct Args {
     /// 设置是否禁用进度条
     #[arg(long, default_value_t = false)]
     no_progress: bool,
+    /// 不要下载已存在将被覆盖的文件
+    #[arg(long, default_value_t = false)]
+    no_clobber: bool,
     /// 设置是否禁用显示ASCII艺术字和版本等信息
     #[arg(long, default_value_t = false)]
     nologo: bool,
@@ -101,8 +104,13 @@ License   {}\n"
     let mut outfile=String::from(out_path.as_str());
 
     if Path::new(outfile.as_str()).exists() {
-        outfile+="_";
-        messages::warn_msg(format!("文件已存在，将会命名为{}……",outfile).as_str());
+        if !args.no_clobber {
+            outfile+="_";
+            messages::warn_msg(format!("文件已存在，将会命名为{}……",outfile).as_str());
+        } else {
+            messages::warn_msg("文件已存在，将不会下载……");
+            exit(0);
+        }
     }
     
     messages::info_msg2(format!("正在保存至{}……",outfile).as_str());
