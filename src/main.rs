@@ -7,7 +7,6 @@ use std::process::exit;
 use std::time::Instant;
 use std::path::Path;
 
-
 fn get_filename_from_url(url_str: &str) -> Option<String> {
     let url = Url::parse(url_str).ok()?;
     let last_segment = url.path_segments()?.last()?;
