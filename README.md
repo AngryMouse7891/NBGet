@@ -34,16 +34,17 @@ NBGet是一个使用了Rust语言+tokio+reqwest+file-retriever的文件下载CLI
 
 ## 使用库
 
-| 包名 | 版本 | 描述 |
-| :---------: | :-------: | :----------: |
-| [`clap`](https://crates.io/crates/clap) | `4.5.42` | 命令行参数解析 |
-| [`file-retriever`](https://crates.io/crates/file-retriever) | `0.1.7` | 支持进度显示的文件下载库 |
-| [`reqwest`](https://crates.io/crates/reqwest) | `0.12.13` | HTTP客户端 |
-| [`tokio`](https://crates.io/crates/tokio) | `1.47.1` | 异步运行时 |
-| [`url`](https://crates.io/crates/url) | `2.5.8` | 用于处理URL的标准库 |
-| [`colored`](https://crates.io/crates/colored) | `3.1.1` | 彩色输出库 |
-| [`percent-encoding`](https://crates.io/crates/percent-encoding) | `2.3.2` | 百分比编解码 |
-| [`chrono`](https://crates.io/crates/chrono) | `0.4.45` | 日期时间库 |
+| 包名 | 版本 | 描述 | 类型 |
+| :---------: | :-------: | :----------: | :----------: |
+| [`clap`](https://crates.io/crates/clap) | `4.5.42` | 命令行参数解析 | 一般依赖 |
+| [`file-retriever`](https://crates.io/crates/file-retriever) | `0.1.7` | 支持进度显示的文件下载库 | 一般依赖 |
+| [`reqwest`](https://crates.io/crates/reqwest) | `0.12.13` | HTTP客户端 | 一般依赖 |
+| [`tokio`](https://crates.io/crates/tokio) | `1.47.1` | 异步运行时 | 一般依赖 |
+| [`url`](https://crates.io/crates/url) | `2.5.8` | 用于处理URL的标准库 | 一般依赖 |
+| [`colored`](https://crates.io/crates/colored) | `3.1.1` | 彩色输出库 | 一般依赖 |
+| [`percent-encoding`](https://crates.io/crates/percent-encoding) | `2.3.2` | 百分比编解码 | 一般依赖 |
+| [`chrono`](https://crates.io/crates/chrono) | `0.4.45` | 日期时间库 | 一般依赖 |
+| [`embed-resource`](https://crates.io/crates/embed-resource) | `3.0.12` | 处理Windows资源的编译和包含 | 构建依赖 |
 
 ## 开源协议
 
