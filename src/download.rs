@@ -3,8 +3,6 @@ use reqwest::Client;
 use reqwest::header::{USER_AGENT};
 use tokio::fs::OpenOptions;
 use std::time::Duration;
-use crate::messages::info_msg;
-use chrono::Local;
 
 pub async fn download_file(
     url: &str, 
@@ -13,8 +11,6 @@ pub async fn download_file(
     headers: Vec<(String, String)>, 
     useragent:&str,
     noprogress: bool) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-    let now = Local::now();
-    info_msg(format!("开始下载：{} （{}）",url,now).as_str());
     let retriever = RetrieverBuilder::new()
         .show_progress(!noprogress)
         .workers(1)

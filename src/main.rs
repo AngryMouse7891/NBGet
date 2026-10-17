@@ -1,11 +1,22 @@
 use clap::Parser;
 mod download;
 mod messages;
+use colored::Colorize;
 use url::Url;
 use percent_encoding::percent_decode_str;
 use std::process::exit;
 use std::time::Instant;
 use std::path::Path;
+use chrono::Local;
+
+static ASCII_LOGO:&str = r#"
+.------..------..------..------..------.
+|N.--. ||B.--. ||G.--. ||E.--. ||T.--. |
+| :(): || :(): || :/\: || (\/) || :/\: |
+| ()() || ()() || :\/: || :\/: || (__) |
+| '--'N|| '--'B|| '--'G|| '--'E|| '--'T|
+`------'`------'`------'`------'`------'
+"#;
 
 fn get_filename_from_url(url_str: &str) -> Option<String> {
     let url = Url::parse(url_str).ok()?;
@@ -41,11 +52,14 @@ struct Args {
     /// 设置是否禁用进度条
     #[arg(long, default_value_t = false)]
     no_progress: bool,
+    /// 设置是否禁用显示ASCII艺术字和版本等信息
+    #[arg(long, default_value_t = false)]
+    nologo: bool,
     /// 自定义请求头，格式: "Key: Value"，可多次使用
     #[arg(short = 'H', long = "header", value_parser = parse_header)]
     headers: Vec<(String, String)>,
     /// 指定下载UA
-    #[arg(short='A', long, default_value_t = format!("NBGet/{} (Rust {})",env!("CARGO_PKG_VERSION"),env!("CARGO_PKG_RUST_VERSION")))]
+    #[arg(short='A', long, default_value_t = format!("NBGet/{}",env!("CARGO_PKG_VERSION")))]
     user_agent: String,
 }
 
@@ -62,6 +76,22 @@ fn parse_header(s: &str) -> Result<(String, String), String> {
 #[tokio::main]
 async fn main() {
     let args = Args::parse();
+    if !args.nologo {
+        println!("
+        {}{}\n
+Version   {}
+Authors   {}
+Repo      {}
+License   {}"
+        ,ASCII_LOGO.blue(),
+        env!("CARGO_PKG_DESCRIPTION").blue(),
+        env!("CARGO_PKG_VERSION").green(),
+        env!("CARGO_PKG_AUTHORS").green(),
+        env!("CARGO_PKG_REPOSITORY").green(),
+        env!("CARGO_PKG_LICENSE").green());
+    }
+    let now = Local::now();
+    messages::info_msg(format!("开始下载：{} （{}）",args.url,now).as_str());
     let out_path = args.out
         .as_deref()
         .filter(|s| !s.is_empty())
